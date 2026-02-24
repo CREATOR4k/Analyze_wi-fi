@@ -1,0 +1,93 @@
+<!-- Затемнение фона (Overlay) -->
+<div id="cart-overlay" class="fixed inset-0 bg-black/50 z-[60] hidden transition-opacity duration-300 opacity-0"></div>
+
+<!-- Боковая корзина -->
+<div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-[70] shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+    
+    <!-- Шапка корзины -->
+    <div class="p-6 border-b flex justify-between items-center">
+        <h2 class="text-2xl font-bold">Корзина <span class="text-gray-400 font-normal">(3)</span></h2>
+        <button id="close-cart" class="text-2xl hover:rotate-90 transition-transform duration-200">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <!-- Список товаров -->
+    <div class="flex-1 overflow-y-auto p-6 space-y-6">
+        <!-- Товар 1 -->
+        <div class="flex gap-4">
+            <img src="https://images.unsplash.com" class="w-20 h-24 object-cover rounded-lg bg-gray-100">
+            <div class="flex-1">
+                <div class="flex justify-between font-medium">
+                    <h3>Базовая футболка</h3>
+                    <span>2 900 ₽</span>
+                </div>
+                <p class="text-sm text-gray-500 mt-1">Цвет: Белый | Размер: M</p>
+                <div class="flex items-center justify-between mt-4">
+                    <div class="flex border rounded-lg overflow-hidden">
+                        <button class="px-3 py-1 hover:bg-gray-100 border-r">-</button>
+                        <span class="px-3 py-1 font-medium">1</span>
+                        <button class="px-3 py-1 hover:bg-gray-100 border-l">+</button>
+                    </div>
+                    <button class="text-sm text-red-500 underline">Удалить</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Товар 2 -->
+        <div class="flex gap-4">
+            <img src="https://images.unsplash.com" class="w-20 h-24 object-cover rounded-lg bg-gray-100">
+            <div class="flex-1">
+                <div class="flex justify-between font-medium">
+                    <h3>Оверсайз куртка</h3>
+                    <span>8 500 ₽</span>
+                </div>
+                <p class="text-sm text-gray-500 mt-1">Цвет: Синий | Размер: L</p>
+                <div class="flex items-center justify-between mt-4">
+                    <div class="flex border rounded-lg overflow-hidden">
+                        <button class="px-3 py-1 hover:bg-gray-100 border-r">-</button>
+                        <span class="px-3 py-1 font-medium">1</span>
+                        <button class="px-3 py-1 hover:bg-gray-100 border-l">+</button>
+                    </div>
+                    <button class="text-sm text-red-500 underline">Удалить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Итого и Кнопки -->
+    <div class="p-6 border-t bg-gray-50">
+        <div class="flex justify-between text-lg font-bold mb-4">
+            <span>Итого:</span>
+            <span>11 400 ₽</span>
+        </div>
+        <p class="text-xs text-gray-500 mb-6 text-center">Налоги и стоимость доставки рассчитываются при оформлении заказа.</p>
+        <button class="w-full bg-black text-white py-4 rounded-xl font-bold hover:bg-indigo-600 transition mb-3">Оформить заказ</button>
+        <button id="continue-shopping" class="w-full text-center text-sm font-semibold hover:text-indigo-600 transition">Продолжить покупки</button>
+    </div>
+</div>
+
+<!-- Скрипт для работы корзины -->
+<script>
+    const cartSidebar = document.getElementById('cart-sidebar');
+    const cartOverlay = document.getElementById('cart-overlay');
+    const openCartBtn = document.querySelector('.relative.hover\\:text-indigo-600'); // Кнопка корзины в навигации
+    const closeCartBtn = document.getElementById('close-cart');
+    const continueBtn = document.getElementById('continue-shopping');
+
+    function toggleCart() {
+        cartSidebar.classList.toggle('translate-x-full');
+        cartOverlay.classList.toggle('hidden');
+        setTimeout(() => cartOverlay.classList.toggle('opacity-0'), 10);
+        document.body.classList.toggle('overflow-hidden'); // Запрет прокрутки сайта
+    }
+
+    openCartBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        toggleCart();
+    });
+
+    [closeCartBtn, continueBtn, cartOverlay].forEach(btn => {
+        btn.addEventListener('click', toggleCart);
+    });
+</script>
